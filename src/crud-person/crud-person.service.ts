@@ -8,7 +8,8 @@ import { CrudPerson } from './entities/crud-person.entity';
 @Injectable()
 export class CrudPersonService {
   constructor(@InjectRepository(CrudPerson) private readonly crudPersonRepository: Repository<CrudPerson>) {}
-
+  
+// Create
   async create(createCrudPersonDto: CreateCrudPersonDto) {
     const crudPersonCreate = this.crudPersonRepository.create({
       ...createCrudPersonDto,
