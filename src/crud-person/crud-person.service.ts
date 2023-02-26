@@ -5,9 +5,11 @@ import { CreateCrudPersonDto } from './dto/create-crud-person.dto';
 import { UpdateCrudPersonDto } from './dto/update-crud-person.dto';
 import { CrudPerson } from './entities/crud-person.entity';
 
+export type User = any;
+
 @Injectable()
 export class CrudPersonService {
-  constructor(@InjectRepository(CrudPerson) private readonly crudPersonRepository: Repository<CrudPerson>) {}
+  constructor(@InjectRepository(CrudPerson) private readonly crudPersonRepository: Repository<CrudPerson>,) {}
 
   async create(createCrudPersonDto: CreateCrudPersonDto) {
     const crudPersonCreate = this.crudPersonRepository.create({
@@ -29,6 +31,13 @@ export class CrudPersonService {
 
     return personOne;
 
+  }
+
+  async findEmail(email: string): Promise<CrudPerson | undefined> {
+    const personEmail = await this.crudPersonRepository.createQueryBuilder('personEmail')
+    .where('personEmail.email = :email', { email })
+    .getOne();
+    return personEmail;
   }
 
   async update(id: number, updateCrudPersonDto: UpdateCrudPersonDto) {

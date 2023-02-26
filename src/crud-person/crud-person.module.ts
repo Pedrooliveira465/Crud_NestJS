@@ -7,6 +7,7 @@ import { CrudPerson } from './entities/crud-person.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([CrudPerson])],
   controllers: [CrudPersonController],
-  providers: [CrudPersonService]
+  providers: [CrudPersonService],
+  exports: [CrudPersonService],
 })
 export class CrudPersonModule {}

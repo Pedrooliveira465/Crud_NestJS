@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { hashSync } from "bcrypt";
 
-@Entity()
+@Entity("users")
 export class CrudPerson {
     @PrimaryGeneratedColumn()
     id: number;
@@ -13,4 +14,13 @@ export class CrudPerson {
 
     @Column()
     email: string;
+
+    @Column()
+    password: string;
+
+    @BeforeInsert()
+    hashPassword() {
+        this.password = hashSync(this.password, 10);
+    }
+
 }

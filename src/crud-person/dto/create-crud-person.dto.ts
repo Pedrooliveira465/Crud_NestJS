@@ -1,4 +1,4 @@
-import { IsString, IsInt, Min, IsEmail } from "class-validator";
+import { IsString, IsInt, Min, IsEmail, IsNotEmpty, Matches } from "class-validator";
 
 export class CreateCrudPersonDto {
     @IsString()
@@ -11,4 +11,8 @@ export class CreateCrudPersonDto {
     @IsString({each: true})
     @IsEmail()
      email: string;
+
+    @IsNotEmpty()
+    password: string
+
 }
